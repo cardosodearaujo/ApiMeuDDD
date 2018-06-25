@@ -1,8 +1,8 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Services;
+using System.Web.Mvc;
+using System.Web;
 using ConsultaDDD.Classes;
 using System.Data.SqlClient;
 
@@ -19,11 +19,43 @@ namespace ConsultaDDD
     public class api : System.Web.Services.WebService
     {
 
+
+        List<resultado> resultados = new List<resultado>();
+
+
         [WebMethod]
-        public string HelloWorld()
+        public List<resultado> GetCidades(string ddd)
         {
-            SqlDataReader resultado = DBCon.Read("select * from DDDs where ddd=27");
-            return "Hello World";
+            SqlDataReader consulta = DBCon.Read("select distinct estado, cidade, operadora from DDDs where ddd=" + ddd);
+
+            while (consulta.Read())
+            {
+                string estado = consulta.GetString(0);
+                string cidade = consulta.GetString(1);
+                string operadora = consulta.GetString(2);
+                resultados.Add(new resultado(ddd, estado, cidade, operadora));
+            }
+            DBCon.closeCon();
+            return resultados;
         }
+
+
+        [WebMethod]
+        public List<resultado> GetDDD(string cidade)
+        {
+            SqlDataReader consulta = DBCon.Read("select distinct ddd, estado, cidade, operadora from DDDs where cidade like '%" + cidade + "%'");
+
+            while (consulta.Read())
+            {
+                string ddd = consulta.GetString(0);
+                string estado = consulta.GetString(1);
+                string nomeCidade = consulta.GetString(2);
+                string operadora = consulta.GetString(3);
+                resultados.Add(new resultado(ddd, estado, nomeCidade, operadora));
+            }
+            DBCon.closeCon();
+            return resultados;
+        }
+
     }
 }
