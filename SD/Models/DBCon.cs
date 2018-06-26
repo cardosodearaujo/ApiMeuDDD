@@ -15,7 +15,7 @@ namespace SD.Models
         static private SqlCommand command = new SqlCommand("", getCon());
         static private SqlDataReader reader;
 
-
+        
         public static SqlConnection getCon()
         {
             connection = new SqlConnection(connetionString);
