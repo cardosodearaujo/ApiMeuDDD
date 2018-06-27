@@ -21,6 +21,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Login", "Index", "Login", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Cadastro", "Index", "Cadastro", new { area = "" }, null)</li>
                     <li><a href="~/api.asmx">API</a></li>
                 </ul>
             </div>
@@ -30,7 +31,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Hadouken</p>
         </footer>
     </div>
 
