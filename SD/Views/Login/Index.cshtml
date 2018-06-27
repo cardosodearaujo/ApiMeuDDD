@@ -1,0 +1,21 @@
+﻿@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+{
+    <div id="corpo" style="height:90%">
+        <fieldset style="width:25%;margin:auto;">
+            <h2>Login</h2>
+            <div style="display:inline-block">
+                <div>
+                    @Html.Label("Email: ")
+                    @Html.TextBox("email")
+                </div>
+                <div>
+                    @Html.Label("Senha: ")
+                    @Html.Password("senha")
+                </div>
+                <a href="~/Login/Cadastro">Criar conta</a>
+            </div>
+            <br>
+            <input type="submit" value="Entrar">
+        </fieldset>
+    </div>
+}
