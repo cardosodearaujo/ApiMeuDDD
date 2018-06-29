@@ -258,6 +258,7 @@
     <Content Include="Views\WebAPI\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Cadastro\Index.cshtml" />
+    <Content Include="Views\Cadastro\Recuperacao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,17 @@
+﻿@using (Html.BeginForm("Recuperar", "Cadastro", FormMethod.Post))
+{
+    <div id="corpo" style="height:90%">
+        <fieldset style="width:25%;margin:auto;">
+            <h2>Login</h2>
+            <div style="display:inline-block">
+                Informe seu email para que possamos lhe ajudar.
+                <div>
+                    @Html.Label("Email: ")
+                    @Html.TextBox("email")
+                </div>
+            </div>
+            <br>
+            <input type="submit" value="Recuperar">
+        </fieldset>
+    </div>
+}
