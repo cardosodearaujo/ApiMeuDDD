@@ -1,7 +1,6 @@
 ﻿using SD.Models;
 using System.Web.Mvc;
 using System.Data.SqlClient;
-using System.Diagnostics;
 
 namespace SD.Controllers
 {

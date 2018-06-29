@@ -16,14 +16,15 @@ namespace SD.Models
         {
             MailClient = new SmtpClient(servidor, porta);
             MailClient.UseDefaultCredentials = false;
+            MailClient.EnableSsl = true;
             NetworkCredential basicAuthenticationInfo = new NetworkCredential(usuario, senha);
             MailClient.Credentials = basicAuthenticationInfo;
         }
 
         public void enviarEmail(string remetente, string destinatario, string assunto, string mensagem)
         {
-            Debug.WriteLine("Enviando Mensagem");
-            MailMessage email = new MailMessage(remetente, destinatario);
+
+            MailMessage email = new MailMessage(new MailAddress(remetente,"MeuDDD App"), new MailAddress(destinatario));
             email.Subject = assunto;
             email.SubjectEncoding = Encoding.UTF8;
             email.Body = mensagem;

@@ -41,8 +41,8 @@ namespace SD.Controllers
             {
                 senha = reader.GetString(0).Trim();
             }
-            MailServer ms = new MailServer("localhost", 25, "contato@meuddd.com.br", "123*abc");
-            ms.enviarEmail("contato@meuddd.com.br", email, "Recuperacao de senha", "Sua senha é: <b>" + senha + "</b>");
+            MailServer ms = new MailServer("smtp.gmail.com", 587, "meuddd.app@gmail.com", "4cess0!DDD");
+            ms.enviarEmail("meuddd.app@gmail.com", email, "Recuperacao de senha", "Para acesso ao site, por favor utilize os dados abaixo:<br>Seu email: " + email + "<br>Sua senha: <b>" + senha + "</b>");
             if (senha != null)
             {
                 feedback = new { status = "ok", mensagem = "Mensagem de recuperação encaminhada" };
