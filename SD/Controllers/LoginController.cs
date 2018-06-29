@@ -15,16 +15,15 @@ namespace SD.Controllers
 
         public JsonResult Login(string email, string senha)
         {
-            SqlDataReader consulta = DBCon.Read("select id, nome, sobrenome, email from users where email='" + email + "' and senha='" + senha + "'");
-            var userData = new { id = 0, nome = "", sobrenome = "", email = "" };
+            SqlDataReader consulta = DBCon.Read("select id, nome, email from users where email='" + email + "' and senha='" + senha + "'");
+            var userData = new { id = 0, nome = "", email = "" };
             while (consulta.Read())
             {
                 userData = new
                 {
                     id = consulta.GetInt32(0),
                     nome = consulta.GetString(1).Trim(),
-                    sobrenome = consulta.GetString(2).Trim(),
-                    email = consulta.GetString(3).Trim()
+                    email = consulta.GetString(2).Trim()
                 };
                 Session["id"] = consulta.GetInt32(0);
             }
