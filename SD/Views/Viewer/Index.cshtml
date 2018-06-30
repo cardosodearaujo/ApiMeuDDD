@@ -1,0 +1,27 @@
+﻿<br>
+<div style="margin:auto">
+    <select id="operacao">
+        <option value="getDDD">Busca por Cidade</option>
+        <option value="getCidades">Busca por DDD</option>
+    </select>
+    <input type="text" id="entrada">
+    <input type="button" value="Realizar Busca" onclick="buscar();">
+</div>
+<script>
+    function buscar() {
+        var selectOperacao = document.getElementById("operacao");
+        var operacao = selectOperacao.options[selectOperacao.selectedIndex].value;
+        var entrada = document.getElementById("entrada").value
+
+        if (operacao == "getDDD") {
+            var servidor = "http://hiruke.ddns.net/webapi/getDDD?cidade=" + entrada;
+        } else if (operacao == "getCidades") {
+            var servidor = "http://hiruke.ddns.net/webapi/getcidades?ddd=" + entrada;
+        }
+        var dados;
+        $.getJSON(servidor, function (data) {
+            dados = data;
+        });
+        alert(dados);
+    }
+</script>
