@@ -7,6 +7,8 @@
     <input type="text" id="entrada">
     <input type="button" value="Realizar Busca" onclick="buscar();">
 </div>
+<div id="dados">
+</div>
 <script>
     function buscar() {
         var selectOperacao = document.getElementById("operacao");
@@ -16,12 +18,37 @@
         if (operacao == "getDDD") {
             var servidor = "http://hiruke.ddns.net/webapi/getDDD?cidade=" + entrada;
         } else if (operacao == "getCidades") {
-            var servidor = "http://hiruke.ddns.net/webapi/getcidades?ddd=" + entrada;
+            var servidor = "http://hiruke.ddns.net/webapi/getCidades?ddd=" + entrada;
         }
-        var dados;
-        $.getJSON(servidor, function (data) {
-            dados = data;
+        $.getJSON(servidor, function (json) {
+            carregaDados(json, operacao);
         });
-        alert(dados);
+    }
+
+    function carregaDados(json, operacao) {
+        document.getElementById("dados").innerHTML = "";
+        if (json.length > 0) {
+            var html;
+            for (var elemento in json) {
+                codigoHtml =
+                    "DDD:" + json[elemento].ddd + "<br>" +
+                    "Cidade:" + json[elemento].cidade + "<br>" +
+                    "Estado:" + json[elemento].estado + "<br>" +
+                    "Operadora:" + json[elemento].operadora;
+                var divCidade = document.createElement("div");
+                divCidade.innerHTML = codigoHtml;
+                divCidade.className = "dadosCidade";
+                document.getElementById("dados").append(divCidade);
+            }
+        } else {
+            document.getElementById("dados").innerHTML = "<p>Nenhum valor foi encontrado pela busca. Por favor verifique os dados informados e tente novamnente.</p>";
+        }
     }
 </script>
+<style>
+    .dadosCidade {
+        display: inline-block;
+        margin: 1em;
+        width: 20em;
+    }
+</style>
