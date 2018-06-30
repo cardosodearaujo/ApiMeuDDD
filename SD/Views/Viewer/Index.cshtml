@@ -35,14 +35,21 @@
                     "Cidade:" + json[elemento].cidade + "<br>" +
                     "Estado:" + json[elemento].estado + "<br>" +
                     "Operadora:" + json[elemento].operadora;
+
+
+                codigoHtml =
+                    "<div class='panel-heading'>" + json[elemento].cidade + "</div>" +
+                    "<div class='panel-body'>" +
+                    "<ul class='list-group list-group-flush'>" +
+                    "<li class='list-group-item'>DDD:" + json[elemento].ddd + "</li>" +
+                    "<li class='list-group-item'>Estado:" + json[elemento].estado + "</li>" +
+                    "<li class='list-group-item'>Operadora:" + json[elemento].operadora + "</li>" +
+                    "</ul>" +
+                    "</div>";
+
                 var divCidade = document.createElement("div");
                 divCidade.innerHTML = codigoHtml;
-
-                if (Math.abs(json[elemento] % 2) > 0) {
-                    divCidade.className = "dadosCidadeImpar";
-                } else {
-                    divCidade.className = "dadosCidadePar";
-                }
+                divCidade.className = "panel panel-default";
 
                 document.getElementById("dados").append(divCidade);
             }
@@ -52,13 +59,7 @@
     }
 </script>
 <style>
-    .dadosCidadeImpar {
-        display: inline-block;
-        margin: 1em;
-        width: 20em;
-    }
-
-    .dadosCidadePar {
+    .panel {
         display: inline-block;
         margin: 1em;
         width: 20em;
