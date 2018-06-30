@@ -37,7 +37,13 @@
                     "Operadora:" + json[elemento].operadora;
                 var divCidade = document.createElement("div");
                 divCidade.innerHTML = codigoHtml;
-                divCidade.className = "dadosCidade";
+
+                if (Math.abs(json[elemento] % 2) > 0) {
+                    divCidade.className = "dadosCidadeImpar";
+                } else {
+                    divCidade.className = "dadosCidadePar";
+                }
+
                 document.getElementById("dados").append(divCidade);
             }
         } else {
@@ -46,7 +52,13 @@
     }
 </script>
 <style>
-    .dadosCidade {
+    .dadosCidadeImpar {
+        display: inline-block;
+        margin: 1em;
+        width: 20em;
+    }
+
+    .dadosCidadePar {
         display: inline-block;
         margin: 1em;
         width: 20em;
