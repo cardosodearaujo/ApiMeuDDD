@@ -19,11 +19,14 @@
         var senha = document.getElementById("senha").value;
         var servidor = "http://hiruke.ddns.net/Login/Login?email=" + email + "&senha=" + senha;
         $.getJSON(servidor, function (json) {
-            carregaDados(json);
+            iniciaSessao(json);
         });
     }
-    function carregaDados(json) {
+    function iniciaSessao(json) {
         if (json["id"] > 0) {
+            document.cookie = "id=" + json["id"] + " ;path=/"
+            document.cookie = "nome=" + json["nome"] + "; path=/"
+            document.cookie = "email=" + json["email"] + " ;path=/"
             window.location.replace("/Viewer");
         } else {
             alert("Usuario ou senha incorretos.\nVerifique os dados informados e tente novamente")

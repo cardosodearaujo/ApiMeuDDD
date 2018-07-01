@@ -16,25 +16,40 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Visualizador", "Index", "Viewer", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Login", "Index", "Login", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Visualizador", "Index", "Viewer", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Cadastro", "Index", "Cadastro", new { area = "" }, null)</li>
-                    <li>Nome: @ViewBag.nome</li>
                     <li><a href="~/api.asmx">API</a></li>
+                    @if (ViewBag.id != null)
+                    {
+                        <li>@Html.ActionLink("Logout", "Logout", "Login", new { area = "" }, null)</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Index", "Login", new { area = "" }, null)</li>
+                    }
+                    <li><a>Conectado como: @ViewBag.nome</a></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Hadouken</p>
-        </footer>
     </div>
+    <div style="position:fixed;bottom:0;margin:auto;width:100%;height:5%;background-color:slategrey;">
+        <p style="text-align: center;color:slategray">May the force be with you!</p>
+    </div>
+
+    @if (TempData["mensagem"] != null)
+    {
+        <div style="width:50rem;height:6rem;position:absolute;left:0;right:0;top:0; bottom:0;margin:auto" class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <p style="text-align: center">@TempData["mensagem"]</p>
+        </div>
+    }
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

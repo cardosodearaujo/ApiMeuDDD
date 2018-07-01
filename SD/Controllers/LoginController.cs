@@ -1,6 +1,7 @@
 ﻿using SD.Models;
 using System.Web.Mvc;
-using System.Data.SqlClient;
+using System;
+using System.Diagnostics;
 
 namespace SD.Controllers
 {
@@ -9,42 +10,63 @@ namespace SD.Controllers
         // GET: Login
         public ActionResult Index()
         {
-            return View();
+
+            ViewBag.Title = "Login";
+            if (!getSessao())
+            {
+                return View();
+            }
+            else
+            {
+                ViewBag.nome = Request.Cookies.Get("nome").Value.ToString();
+                ViewBag.email = Request.Cookies.Get("email").Value.ToString();
+                ViewBag.id = Request.Cookies.Get("id").Value.ToString();
+                TempData["mensagem"] = "Usuario ja encontra-se conectado";
+                return RedirectToAction("Index", "Home");
+            }
+
         }
 
-        /*public JsonResult LoginOld(string email, string senha)
+        bool getSessao()
         {
-            SqlDataReader consulta = DBCon.Read("select id, nome, email from users where email='" + email + "' and senha='" + senha + "'");
-            var userData = new { id = 0, nome = "", email = "" };
-            while (consulta.Read())
+            int id = 0;
+            try
             {
-                userData = new
-                {
-                    id = consulta.GetInt32(0),
-                    nome = consulta.GetString(1).Trim(),
-                    email = consulta.GetString(2).Trim()
-                };
-                Session["id"] = consulta.GetInt32(0);
+                id = int.Parse(Request.Cookies.Get("id").Value);
             }
-            consulta.Close();
-            return Json(userData, JsonRequestBehavior.AllowGet);
-        }*/
+            catch (Exception e)
+            {
+                id = 0;
+            }
+
+            if (id > 0)
+            {
+                if (!operador.usuarioExiste(id))
+                {
+                    Response.Cookies["id"].Expires = DateTime.Now.AddDays(-1);
+                    Response.Cookies["nome"].Expires = DateTime.Now.AddDays(-1);
+                    Response.Cookies["email"].Expires = DateTime.Now.AddDays(-1);
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public JsonResult Login(string email, string senha)
         {
-            usuario usuario = operador.login(email, senha);
-            setSessao(usuario);
-            return Json(usuario, JsonRequestBehavior.AllowGet);
+            return Json(operador.login(email, senha), JsonRequestBehavior.AllowGet);
         }
 
-        public void setSessao(usuario usuario)
+        public ActionResult Logout()
         {
-            if (usuario.id != 0)
-            {
-                Response.Cookies["id"].Value = usuario.id.ToString();
-                Response.Cookies["nome"].Value = usuario.nome;
-                Response.Cookies["email"].Value = usuario.email.ToString();
-            }
+            Response.Cookies["id"].Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies["nome"].Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies["email"].Expires = DateTime.Now.AddDays(-1);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

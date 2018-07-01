@@ -1,23 +1,73 @@
 ﻿using System.Web.Mvc;
 using SD.Models;
+using System;
+
 namespace SD.Controllers
 {
     public class CadastroController : Controller
     {
+
         //Retorna a view Index (Pagina de criacao de conta)
         public ActionResult Index()
         {
-            return View();
+            ViewBag.Title = "Cadastro";
+            if (!getSessao())
+            {
+                return View();
+            }
+            else
+            {
+                ViewBag.nome = Request.Cookies.Get("nome").Value.ToString();
+                ViewBag.email = Request.Cookies.Get("email").Value.ToString();
+                ViewBag.id = Request.Cookies.Get("id").Value.ToString();
+                TempData["mensagem"] = "Usuario ja encontra-se conectado";
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //Retorna a view Recuperacao (Pagina de recuperacao de senha)
         public ActionResult Recuperacao()
         {
+            if (getSessao())
+            {
+                ViewBag.nome = Request.Cookies.Get("nome").Value.ToString();
+                ViewBag.email = Request.Cookies.Get("email").Value.ToString();
+                ViewBag.id = Request.Cookies.Get("id").Value.ToString();
+            }
+            ViewBag.Title = "Recuperacao";
             return View();
         }
 
+        bool getSessao()
+        {
+            int id = 0;
+            try
+            {
+                id = int.Parse(Request.Cookies.Get("id").Value);
+            }
+            catch (Exception e)
+            {
+                id = 0;
+            }
 
-        
+            if (id > 0)
+            {
+                if (!operador.usuarioExiste(id))
+                {
+                    Response.Cookies["id"].Expires = DateTime.Now.AddDays(-1);
+                    Response.Cookies["nome"].Expires = DateTime.Now.AddDays(-1);
+                    Response.Cookies["email"].Expires = DateTime.Now.AddDays(-1);
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
         public JsonResult Cadastro(string nome, string email, string senha)
         {
             return Json(operador.criarConta(nome, email, senha), JsonRequestBehavior.AllowGet);
@@ -43,7 +93,7 @@ namespace SD.Controllers
             return Json(feedback, JsonRequestBehavior.AllowGet);
         }*/
 
-        
+
         public JsonResult Recuperar(string email)
         {
             return Json(operador.recuperarConta(email), JsonRequestBehavior.AllowGet);

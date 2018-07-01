@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Services;
 using SD.Models;
+using System.Data.SqlClient;
 
 namespace SD
 {
@@ -18,18 +19,44 @@ namespace SD
 
         List<resultado> resultados = new List<resultado>();
 
+        public bool autenticado(string email, string senha)
+        {
+            usuario usuario = operador.login(email, senha);
+            if (usuario.id > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         [WebMethod]
-        public List<resultado> consultaCidades(string ddd)
+        public List<resultado> consultaCidades(string ddd, string email, string senha)
         {
-            return operador.getCidades(ddd);
+            if (autenticado(email, senha))
+            {
+                return operador.getCidades(ddd);
+            }
+            else
+            {
+                return new List<resultado>();
+            }
         }
 
 
         [WebMethod]
-        public List<resultado> consultatDDD(string cidade)
+        public List<resultado> consultatDDD(string cidade, string email, string senha)
         {
-            return operador.getDDD(cidade);
+            if (autenticado(email, senha))
+            {
+                return operador.getDDD(cidade);
+            }
+            else
+            {
+                return new List<resultado>();
+            }
         }
 
         [WebMethod]

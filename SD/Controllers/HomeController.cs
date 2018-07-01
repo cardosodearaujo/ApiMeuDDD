@@ -12,12 +12,9 @@ namespace SD.Controllers
         {
             if (getSessao())
             {
-                ViewBag.nome = Request.Cookies.Get("nome").Value;
-                ViewBag.email = Request.Cookies.Get("email").Value;
-                ViewBag.id = Request.Cookies.Get("id").Value;
-            }
-            else
-            {
+                ViewBag.nome = Request.Cookies.Get("nome").Value.ToString();
+                ViewBag.email = Request.Cookies.Get("email").Value.ToString();
+                ViewBag.id = Request.Cookies.Get("id").Value.ToString();
             }
             ViewBag.Title = "Home Page";
             return View();
