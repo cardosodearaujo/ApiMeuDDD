@@ -19,6 +19,7 @@ namespace SD
 
         List<resultado> resultados = new List<resultado>();
 
+        //Funcao de teste de autenticacao
         public bool autenticado(string email, string senha)
         {
             usuario usuario = operador.login(email, senha);
@@ -35,6 +36,7 @@ namespace SD
         [WebMethod]
         public List<resultado> consultaCidades(string ddd, string email, string senha)
         {
+            //Retorna os dados do banco caso o usuario esteja autenticado, caso contrario retornar um xml em branco
             if (autenticado(email, senha))
             {
                 return operador.getCidades(ddd);
@@ -49,6 +51,7 @@ namespace SD
         [WebMethod]
         public List<resultado> consultatDDD(string cidade, string email, string senha)
         {
+            //Retorna os dados do banco caso o usuario esteja autenticado, caso contrario retornar um xml em branco
             if (autenticado(email, senha))
             {
                 return operador.getDDD(cidade);
@@ -59,12 +62,14 @@ namespace SD
             }
         }
 
+        //Invoca o metodo de recuperacao de conta da classe operador para o email informado.
         [WebMethod]
         public feedback recuperarConta(string email)
         {
             return operador.recuperarConta(email);
         }
 
+        //Invoca o metodo de criacao de conta da classe operador
         [WebMethod]
         public feedback criarConta(string nome, string email, string senha)
         {

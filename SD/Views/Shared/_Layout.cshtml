@@ -26,12 +26,13 @@
                     @if (ViewBag.id != null)
                     {
                         <li>@Html.ActionLink("Logout", "Logout", "Login", new { area = "" }, null)</li>
+                        <li><a>Conectado como: @ViewBag.nome</a></li>
                     }
                     else
                     {
                         <li>@Html.ActionLink("Login", "Index", "Login", new { area = "" }, null)</li>
                     }
-                    <li><a>Conectado como: @ViewBag.nome</a></li>
+
                 </ul>
             </div>
         </div>
@@ -45,7 +46,7 @@
 
     @if (TempData["mensagem"] != null)
     {
-        <div style="width:50rem;height:6rem;position:absolute;left:0;right:0;top:0; bottom:0;margin:auto" class="alert alert-danger fade in">
+        <div style="width:28rem;height:8rem;position:absolute;left:0;right:0;top:0; bottom:0;margin:auto" class="alert alert-danger fade in">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
             <p style="text-align: center">@TempData["mensagem"]</p>
         </div>

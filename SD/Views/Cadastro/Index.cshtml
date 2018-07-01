@@ -1,24 +1,32 @@
-﻿@using (Html.BeginForm("Cadastro", "Cadastro", FormMethod.Post))
-{
-    <div id="corpo" style="height:90%">
-        <fieldset style="width:25%;margin:auto;">
-            <h2>Login</h2>
-            <div style="display:inline-block">
-                <div>
-                    @Html.Label("Nome: ")
-                    @Html.TextBox("nome")
-                </div>
-                <div>
-                    @Html.Label("Email: ")
-                    @Html.TextBox("email")
-                </div>
-                <div>
-                    @Html.Label("Senha: ")
-                    @Html.Password("senha")
-                </div>
-            </div>
-            <br>
-            <input type="submit" value="Cadastrar">
-        </fieldset>
+﻿<fieldset style="border:1px;position:absolute;left:0;right:0;top:0;bottom:0;margin:auto;width:28rem;height:10rem">
+    <legend>Cadastro</legend>
+    <div style="position:absolute;left:0;right:0;margin:auto">
+        <label style="width:7rem" for="nome">Nome</label>
+        <input style="width:20rem" type="text" name="nome" id="nome"><br>
+        <label style="width:7rem" for="email">Email</label>
+        <input style="width:20rem" type="email" name="email" id="email"><br>
+        <label style="width:7rem" for="senha">Senha</label>
+        <input style="width:20rem" type="password" name="senha" id="senha"><br>
+        <input style="position:absolute;right:0;margin:auto;margin-top:1em" type="button" value="Cadastrar" onclick="cadastrar()" />
+        <a style="position:absolute;right:0;margin:auto;margin-top:3em" href="~/Login">Fazer login</a>
     </div>
-}
+</fieldset>
+<script>
+    function cadastrar() {
+        var senha = document.getElementById("nome").value;
+        var email = document.getElementById("email").value;
+        var senha = document.getElementById("senha").value;
+        var servidor = "http://hiruke.ddns.net/Cadastro/Cadastro?email=" + email + "&senha=" + senha + "&nome=" + nome;
+        $.getJSON(servidor, function (json) {
+            retorno(json);
+        });
+    }
+    function retorno(json) {
+        if (json["status"] == "ok") {
+            alert(json["mensagem"]);
+            window.location.replace("/Login");
+        } else {
+            alert(json["mensagem"]);
+        }
+    }
+</script>

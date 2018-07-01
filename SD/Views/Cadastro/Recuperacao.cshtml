@@ -1,17 +1,39 @@
-﻿@using (Html.BeginForm("Recuperar", "Cadastro", FormMethod.Post))
-{
-    <div id="corpo" style="height:90%">
-        <fieldset style="width:25%;margin:auto;">
-            <h2>Login</h2>
-            <div style="display:inline-block">
-                Informe seu email para que possamos lhe ajudar.
-                <div>
-                    @Html.Label("Email: ")
-                    @Html.TextBox("email")
-                </div>
-            </div>
-            <br>
-            <input type="submit" value="Recuperar">
-        </fieldset>
+﻿<!--<fieldset style="width:25%;margin:auto">
+    <div style="display:inline-block">
+        Informe seu email para que possamos lhe ajudar.
+        <div>
+            @Html.Label("Email: ")
+            @Html.TextBox("email")
+        </div>
     </div>
-}
+    <br>
+    <input type="submit" value="Recuperar">
+</fieldset>-->
+
+<fieldset style="border:1px;position:absolute;left:0;right:0;top:0;bottom:0;margin:auto;width:28rem;height:10rem">
+    <legend>Recuperação de acesso</legend>
+    <div style="position:absolute;left:0;right:0;margin:auto">
+        <label style="width:7rem" for="email">Email</label>
+        <input style="width:20rem" type="email" name="email" id="email"><br>
+        <input style="position:absolute;right:0;margin:auto;margin-top:1em" type="button" value="Recuperar" onclick="recuperar()"><br />
+        <a style="position:absolute;right:0;margin:auto;margin-top:3em" href="~/Login">Lembrei minha senha</a>
+    </div>
+</fieldset>
+
+<script>
+    function recuperar() {
+        var email = document.getElementById("email").value;
+        var servidor = "http://hiruke.ddns.net/Cadastro/Recuperar?email=" + email;
+        $.getJSON(servidor, function (json) {
+            retorno(json);
+        });
+    }
+    function retorno(json) {
+        if (json["status"] == "ok") {
+            alert(json["mensagem"]);
+            window.location.replace("/Login");
+        } else {
+            alert(json["mensagem"] + ". Tente novamente");
+        }
+    }
+</script>

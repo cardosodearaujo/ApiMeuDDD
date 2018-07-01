@@ -12,6 +12,8 @@ namespace SD.Models
     {
         private SmtpClient MailClient;
 
+
+        //Define as informacoes de conexao para o servidor SMTP
         public MailServer(string servidor, int porta, string usuario, string senha)
         {
             MailClient = new SmtpClient(servidor, porta);

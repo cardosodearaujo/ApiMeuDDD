@@ -1,18 +1,15 @@
-﻿<div id="corpo" style="height:90%">
-    <fieldset style="width:25%;margin:auto;">
-        <h2>Login</h2>
-        <div>
-            <label for="email">Email</label>
-            <input type="text" name="email" id="email"><br>
-            <label for="senha">Senha</label>
-            <input type="password" name="senha" id="senha">
-        </div>
-        <br>
-        <input type="button" value="Login" onclick="login();">
-    </fieldset>
-    <a href="~/Cadastro">Criar conta</a>
-    <a href="~/Cadastro/Recuperacao">Recuperar acesso</a>
-</div>
+﻿<fieldset style="border:1px;position:absolute;left:0;right:0;top:0;bottom:0;margin:auto;width:28rem;height:10rem">
+    <legend>Login</legend>
+    <div style="position:absolute;left:0;right:0;margin:auto">
+        <label style="width:7rem" for="email">Email</label>
+        <input style="width:20rem" type="email" name="email" id="email"><br>
+        <label style="width:7rem" for="senha">Senha</label>
+        <input style="width:20rem" type="password" name="senha" id="senha"><br>
+        <input style="position:absolute;right:0;margin:auto;margin-top:1em" type="button" value="Login" onclick="login()"><br />
+        <a style="position:absolute;right:0;margin:auto;margin-top:3em" href="~/Cadastro/Recuperacao">Esqueci minha senha</a>
+    </div>
+</fieldset>
+
 <script>
     function login() {
         var email = document.getElementById("email").value;

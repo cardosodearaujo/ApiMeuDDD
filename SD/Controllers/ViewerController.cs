@@ -17,6 +17,7 @@ namespace SD.Controllers
             }
             else
             {
+                TempData["mensagem"] = "É necessario estar conectado para acessar esta area";
                 return RedirectToAction("Index", "Home");
             }
             ViewBag.Title = "Visualizador";
