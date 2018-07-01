@@ -20,7 +20,7 @@ namespace SD.Controllers
                 ViewBag.nome = Request.Cookies.Get("nome").Value.ToString();
                 ViewBag.email = Request.Cookies.Get("email").Value.ToString();
                 ViewBag.id = Request.Cookies.Get("id").Value.ToString();
-                TempData["mensagem"] = "Usuario ja encontra-se conectado";
+                TempData["mensagem"] = "Um usuario encontra-se conectado.<br>Por favor desconecte da sessão atual antes de prosseguir";
                 return RedirectToAction("Index", "Home");
             }
         }
