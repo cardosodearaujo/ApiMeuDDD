@@ -1,8 +1,5 @@
 ﻿using System.Web.Mvc;
 using SD.Models;
-using System.Data.SqlClient;
-using System;
-
 namespace SD.Controllers
 {
     public class CadastroController : Controller
@@ -13,8 +10,20 @@ namespace SD.Controllers
             return View();
         }
 
-        //Recebe os dados submetidos na pagina de cadastro e realiza o input no banco de dados
+        //Retorna a view Recuperacao (Pagina de recuperacao de senha)
+        public ActionResult Recuperacao()
+        {
+            return View();
+        }
+
+
+        
         public JsonResult Cadastro(string nome, string email, string senha)
+        {
+            return Json(operador.criarConta(nome, email, senha), JsonRequestBehavior.AllowGet);
+        }
+
+        /*public JsonResult CadastroOld(string nome, string email, string senha)
         {
             string retorno = DBCon.Exec("insert into users (nome,email,senha) values ('" + nome + "','" + email + "','" + senha + "')");
             var feedback = new { status = "", mensagem = "" };
@@ -32,17 +41,14 @@ namespace SD.Controllers
                     break;
             }
             return Json(feedback, JsonRequestBehavior.AllowGet);
-        }
+        }*/
 
-
-        //Retorna a view Recuperacao (Pagina de recuperacao de senha)
-        public ActionResult Recuperacao()
-        {
-            return View();
-        }
-
-        //Recebe um endereco de email, verifica se o mesmo existe no banco de dados e retorna a senha associada ao mesmo
+        
         public JsonResult Recuperar(string email)
+        {
+            return Json(operador.recuperarConta(email), JsonRequestBehavior.AllowGet);
+        }
+        /*public JsonResult RecuperarOld(string email)
         {
             var feedback = new { status = "", mensagem = "" };
             string senha = null;
@@ -73,7 +79,6 @@ namespace SD.Controllers
 
             reader.Close();
             return Json(feedback, JsonRequestBehavior.AllowGet);
-        }
-
+        }*/
     }
 }

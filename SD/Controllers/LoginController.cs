@@ -12,7 +12,7 @@ namespace SD.Controllers
             return View();
         }
 
-        public JsonResult Login(string email, string senha)
+        /*public JsonResult LoginOld(string email, string senha)
         {
             SqlDataReader consulta = DBCon.Read("select id, nome, email from users where email='" + email + "' and senha='" + senha + "'");
             var userData = new { id = 0, nome = "", email = "" };
@@ -28,7 +28,23 @@ namespace SD.Controllers
             }
             consulta.Close();
             return Json(userData, JsonRequestBehavior.AllowGet);
+        }*/
+
+        public JsonResult Login(string email, string senha)
+        {
+            usuario usuario = operador.login(email, senha);
+            setSessao(usuario);
+            return Json(usuario, JsonRequestBehavior.AllowGet);
         }
 
+        public void setSessao(usuario usuario)
+        {
+            if (usuario.id != 0)
+            {
+                Response.Cookies["id"].Value = usuario.id.ToString();
+                Response.Cookies["nome"].Value = usuario.nome;
+                Response.Cookies["email"].Value = usuario.email.ToString();
+            }
+        }
     }
 }

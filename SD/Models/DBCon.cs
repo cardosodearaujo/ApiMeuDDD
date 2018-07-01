@@ -1,4 +1,5 @@
 ﻿using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace SD.Models
 {
@@ -29,6 +30,7 @@ namespace SD.Models
         }
         public static SqlDataReader Read(string query)
         {
+            Debug.WriteLine(query);
             command.CommandText = query;
             reader = command.ExecuteReader();
             return reader;
@@ -36,6 +38,7 @@ namespace SD.Models
 
         public static string Exec(string query)
         {
+            Debug.WriteLine(query);
             command.CommandText = query;
             string exception;
             try

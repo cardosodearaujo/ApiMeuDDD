@@ -20,16 +20,34 @@ namespace SD
 
 
         [WebMethod]
-        public List<resultado> GetCidades(string ddd)
+        public List<resultado> consultaCidades(string ddd)
         {
             return operador.getCidades(ddd);
         }
 
 
         [WebMethod]
-        public List<resultado> GetDDD(string cidade)
+        public List<resultado> consultatDDD(string cidade)
         {
             return operador.getDDD(cidade);
+        }
+
+        [WebMethod]
+        public feedback recuperarConta(string email)
+        {
+            return operador.recuperarConta(email);
+        }
+
+        [WebMethod]
+        public feedback criarConta(string nome, string email, string senha)
+        {
+            return operador.criarConta(nome, email, senha);
+        }
+
+        [WebMethod]
+        public usuario login(string email, string senha)
+        {
+            return operador.login(email, senha);
         }
 
     }

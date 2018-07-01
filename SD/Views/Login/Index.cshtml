@@ -1,22 +1,32 @@
-﻿@using (Html.BeginForm("Login", "Login", FormMethod.Post))
-{
-    <div id="corpo" style="height:90%">
-        <fieldset style="width:25%;margin:auto;">
-            <h2>Login</h2>
-            <div style="display:inline-block">
-                <div>
-                    @Html.Label("Email: ")
-                    @Html.TextBox("email")
-                </div>
-                <div>
-                    @Html.Label("Senha: ")
-                    @Html.Password("senha")
-                </div>
-                <a href="~/Cadastro">Criar conta</a>
-                <a href="~/Cadastro/Recuperacao">Recuperar acesso</a>
-            </div>
-            <br>
-            <input type="submit" value="Entrar">
-        </fieldset>
-    </div>
-}
+﻿<div id="corpo" style="height:90%">
+    <fieldset style="width:25%;margin:auto;">
+        <h2>Login</h2>
+        <div>
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email"><br>
+            <label for="senha">Senha</label>
+            <input type="password" name="senha" id="senha">
+        </div>
+        <br>
+        <input type="button" value="Login" onclick="login();">
+    </fieldset>
+    <a href="~/Cadastro">Criar conta</a>
+    <a href="~/Cadastro/Recuperacao">Recuperar acesso</a>
+</div>
+<script>
+    function login() {
+        var email = document.getElementById("email").value;
+        var senha = document.getElementById("senha").value;
+        var servidor = "http://hiruke.ddns.net/Login/Login?email=" + email + "&senha=" + senha;
+        $.getJSON(servidor, function (json) {
+            carregaDados(json);
+        });
+    }
+    function carregaDados(json) {
+        if (json["id"] > 0) {
+            window.location.replace("/Viewer");
+        } else {
+            alert("Usuario ou senha incorretos.\nVerifique os dados informados e tente novamente")
+        }
+    }
+</script>
