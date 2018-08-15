@@ -9,10 +9,15 @@ namespace SD.Models
         private static List<resultado> resultados = new List<resultado>();
 
         //retornar a lista de DDDs de uma cidade
-        public static List<resultado> getDDD(string cidade)
+        public static List<resultado> getDDD(string cidade, string UF)
         {
             DBCon.getCon();
-            SqlDataReader consulta = DBCon.Read("select distinct ddd, estado, cidade, operadora from DDDs where cidade like '%" + cidade + "%'");
+            string SQL = "Select Distinct DDD, ESTADO, CIDADE, OPERADORA From DDDs where CIDADE Like '%" + cidade + "%' collate Latin1_General_CI_AI";
+            if (!string.IsNullOrEmpty(UF)){
+                SQL += " And ESTADO Like '" + UF + "'";
+            }
+           
+            SqlDataReader consulta = DBCon.Read(SQL);
             resultados = new List<resultado>();
             while (consulta.Read())
             {

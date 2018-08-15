@@ -11,9 +11,9 @@ namespace SD.Controllers
             return View();
         }
 
-        public JsonResult getDDD(string cidade)
+        public JsonResult getDDD(string cidade, string UF)
         {
-            return Json(operador.getDDD(cidade), JsonRequestBehavior.AllowGet);
+            return Json(operador.getDDD(cidade,UF), JsonRequestBehavior.AllowGet);
         }
 
 

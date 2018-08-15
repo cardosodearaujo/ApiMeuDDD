@@ -49,12 +49,12 @@ namespace SD
 
 
         [WebMethod]
-        public List<resultado> consultatDDD(string cidade, string email, string senha)
+        public List<resultado> consultatDDD(string cidade, string UF, string email, string senha)
         {
             //Retorna os dados do banco caso o usuario esteja autenticado, caso contrario retornar um xml em branco
             if (autenticado(email, senha))
             {
-                return operador.getDDD(cidade);
+                return operador.getDDD(cidade,UF);
             }
             else
             {
