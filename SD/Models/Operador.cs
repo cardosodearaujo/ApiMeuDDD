@@ -12,9 +12,9 @@ namespace SD.Models
         public static List<resultado> getDDD(string cidade, string UF)
         {
             DBCon.getCon();
-            string SQL = "Select Distinct DDD, ESTADO, CIDADE, OPERADORA From DDDs where CIDADE Like '%" + cidade + "%' collate Latin1_General_CI_AI";
+            string SQL = "Select Distinct DDD, ESTADO, CIDADE, OPERADORA From DDDs where CIDADE Like '%" + cidade.Replace("'","''") + "%' collate Latin1_General_CI_AI";
             if (!string.IsNullOrEmpty(UF)){
-                SQL += " And ESTADO Like '" + UF + "'";
+                SQL += " And ESTADO Like '" + UF.Replace("'","''") + "'";
             }
            
             SqlDataReader consulta = DBCon.Read(SQL);
@@ -35,7 +35,7 @@ namespace SD.Models
         public static List<resultado> getCidades(string ddd)
         {
             DBCon.getCon();
-            SqlDataReader consulta = DBCon.Read("select distinct estado, cidade, operadora from DDDs where ddd=" + ddd);
+            SqlDataReader consulta = DBCon.Read("select distinct estado, cidade, operadora from DDDs where ddd=" + ddd.Replace("'","''"));
             resultados = new List<resultado>();
             while (consulta.Read())
             {
@@ -53,7 +53,7 @@ namespace SD.Models
         {
             feedback feedback = new feedback();
             string senha = null;
-            SqlDataReader reader = DBCon.Read("select senha from users where email='" + email + "'");
+            SqlDataReader reader = DBCon.Read("select senha from users where email='" + email.Replace("'", "''") + "'");
             while (reader.Read())
             {
                 senha = reader.GetString(0).Trim();
@@ -88,7 +88,7 @@ namespace SD.Models
         //Recebe os dados submetidos na pagina de cadastro e realiza o input no banco de dados
         public static feedback criarConta(string nome, string email, string senha)
         {
-            string resultado = DBCon.Exec("insert into users (nome,email,senha) values ('" + nome + "','" + email + "','" + senha + "')");
+            string resultado = DBCon.Exec("insert into users (nome,email,senha) values ('" + nome.Replace("'", "''") + "','" + email.Replace("'", "''") + "','" + senha.Replace("'", "''") + "')");
             feedback feedback = new feedback();
             switch (resultado)
             {
@@ -113,7 +113,7 @@ namespace SD.Models
         public static usuario login(string email, string senha)
         {
 
-            SqlDataReader consulta = DBCon.Read("select id, nome, email from users where email='" + email + "' and senha='" + senha + "'");
+            SqlDataReader consulta = DBCon.Read("select id, nome, email from users where email='" + email.Replace("'", "''") + "' and senha='" + senha.Replace("'", "''") + "'");
             usuario usuario = new usuario();
             var userData = new { id = 0, nome = "", email = "" };
             while (consulta.Read())
