@@ -19,7 +19,7 @@ namespace SD.Models
         
         public static SqlConnection getCon()
         {
-            connection = new SqlConnection(connetionString);
+            connection = new SqlConnection(connetionString );
             connection.Open();
             return connection;
         }
