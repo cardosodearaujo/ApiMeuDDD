@@ -1,1 +1,2 @@
-API em asp.net para consulta de DDD's do Brasil
+# API Meu DDD
+API para consulta de DDD's de todo Brasil
