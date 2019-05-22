@@ -7,15 +7,13 @@ namespace SD.Models
     {
 
         static private SqlConnection connection = null;
-        static private string server = "noc.outview.com.br";
-        static private string database = "SD";
-        static private string port = "14333";
-        static private string user = "sa";
-        static private string pass = "123*abc";
+        static private string server = "new.database.windows.net";
+        static private string database = "BD_New_MeuDDD";
+        static private string port = "1433";
+        static private string user = "administrador";
+        static private string pass = "M1n3Rv@7";
         static private string connetionString = "Data Source=" + server + "," + port + ";MultipleActiveResultSets=true;Initial Catalog=" + database + ";User ID=" + user + ";Password=" + pass;
         static private SqlCommand command = new SqlCommand("", getCon());
-        static private SqlDataReader reader;
-
         
         public static SqlConnection getCon()
         {
@@ -32,7 +30,7 @@ namespace SD.Models
         {
             Debug.WriteLine(query);
             command.CommandText = query;
-            reader = command.ExecuteReader();
+            SqlDataReader reader = command.ExecuteReader();
             return reader;
         }
 
